@@ -1,0 +1,174 @@
+{% extends layout_path %}
+
+{% load static %}
+{% load i18n %}
+
+{% block title %}注册页面{% endblock %}
+
+{% block page_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static  'vendor/css/pages/page-auth.css' %}">
+{% endblock page_css %}
+
+
+{% block content %}
+<div class="container-xxl">
+  <div class="authentication-wrapper authentication-basic container-p-y">
+    <div class="authentication-inner">
+
+      <!-- Register Card -->
+      <div class="card">
+        <div class="card-body">
+          <!-- Logo -->
+          <div class="app-brand justify-content-center">
+            <a href="{% url 'index' %}" class="app-brand-link gap-2">
+              <span class="app-brand-logo demo">
+                <img src="{% static 'img/logo/logo_Beihang.png' %}" alt="Beihang" width="40">
+              </span>
+              <span class="app-brand-text demo text-body fw-bold">{% get_theme_variables 'template_name' %}</span>
+            </a>
+          </div>
+          <!-- /Logo -->
+          <h4 class="mb-2">请填写注册信息</h4>
+          <p class="mb-4">系统基于LLM构建工业大数据知识图谱实现高效利用</p>
+          {% if messages %}
+                  <ul>
+                      {% for message in messages %}
+                          <li class="{{ message.tags }}">{{ message }}</li>
+                      {% endfor %}
+                  </ul>
+              {% endif %}
+          <form id="formAuthentication" class="mb-3" method="post" action="{% url 'auth-register-basic' %}">
+            {% csrf_token %}
+            <div class="container px-4 py-3">
+                <div class="mb-3">
+                    <label for="email" class="form-label">邮箱</label>
+                    <input type="text" class="form-control" id="email" name="email" placeholder="注册邮箱" required>
+                </div>
+                <div class="mb-3 form-password-toggle">
+                    <label class="form-label" for="password">密码</label>
+                    <div class="input-group input-group-merge">
+                        <input type="password" id="password" class="form-control" name="password" placeholder="密码" required>
+                        <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">姓名</label>
+                    <input type="text" id="name" class="form-control" name="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="gender" class="form-label">性别</label>
+                    <select id="gender" class="form-select" name="gender" required>
+                        <option value="1" selected>男</option>
+                        <option value="0">女</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="age" class="form-label">年龄</label>
+                    <input type="text" id="age" class="form-control" name="age" required>
+                </div>
+                <div class="mb-3">
+                    <label for="post" class="form-label">职位</label>
+                    <select id="post" class="form-select" name="post" required>
+                        <option value="General & Transverse Management" selected>横向管理经理</option>
+                        <option value="Installation & Field Operations">安装与现场操作工人</option>
+                        <option value="Digital Transformation">数字化转型部门</option>
+                        <option value="Commercial">商业员工</option>
+                        <option value="Procurement">采购经理</option>
+                        <option value="Strategy, Innovation, Integration">战略与创新部门员工</option>
+                        <option value="Quality">质量管控经理</option>
+                        <option value="Project & Bid">项目与投标经理</option>
+                        <option value="Human Resources">人力资源管理</option>
+                        <option value="Environment, Health & Safety">环境、健康和安全</option>
+                        <option value="Supply Chain & Planning">供应链与规划项目经理</option>
+                        <option value="Legal">法律员工</option>
+                        <option value="Industrial">工业-现场负责人</option>
+                        <option value="Finance">金融部门员工</option>
+                        <option value="Engineering">工程师</option>
+                        <option value="Communication">通信员工</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="city" class="form-label">工作城市</label>
+                    <select id="city" class="form-select" name="city" required>
+                        <option value="Wuhu" selected>芜湖</option>
+                        <option value="Shanhai">上海</option>
+                        <option value="Xian">西安</option>
+                        <option value="Changzhou">常州</option>
+                        <option value="Chengdu">成都</option>
+                        <option value="Datong">大同</option>
+                        <option value="Qingdao">青島</option>
+                        <option value="Shenzhen">深圳</option>
+                        <option value="Zhongchun">中春</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="education" class="form-label">教育背景</label>
+                    <select id="education" class="form-select" name="education" required>
+                        <option value="highschool">高中</option>
+                        <option value="juniorcollege">专科</option>
+                        <option value="undergraduate" selected>本科</option>
+                        <option value="master">硕士</option>
+                        <option value="doctor">博士</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="department" class="form-label">部门</label>
+                    <select id="department" class="form-select" name="department" required>
+                        <option value="Production" selected>生产</option>
+                        <option value="Maintenance">维修</option>
+                        <option value="Service">服务</option>
+                        <option value="Commercial">商业</option>
+                        <option value="Executive">行政</option>
+                        <option value="Quality">质量管控</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="workenvironment" class="form-label">工作环境</label>
+                    <select id="workenvironment" class="form-select" name="workenvironment" required>
+                        <option value="workshop" selected>生产车间</option>
+                        <option value="office">办公室</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="techSkillLevel" class="form-label">软件技术熟练度</label>
+                    <select id="techSkillLevel" class="form-select" name="techSkillLevel" required>
+                        <option value="1">入门</option>
+                        <option value="2">新手</option>
+                        <option value="3" selected>熟悉</option>
+                        <option value="4">掌握</option>
+                        <option value="5">精通</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="equipmentSkillLevel" class="form-label">生产设备操作能力</label>
+                    <select id="equipmentSkillLevel" class="form-select" name="equipmentSkillLevel" required>
+                        <option value="1">入门</option>
+                        <option value="2">新手</option>
+                        <option value="3" selected>熟悉</option>
+                        <option value="4">掌握</option>
+                        <option value="5">精通</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="experience_years" class="form-label">工龄</label>
+                    <input type="text" id="experience_years" class="form-control" name="experience_years" required>
+                </div>
+                <button type="submit" class="btn btn-primary d-grid w-100">
+                    注册
+                </button>
+            </div>
+        </form>
+          <p class="text-center">
+            <span>已有账号?</span>
+            <a href="{% url 'auth-login-basic' %}">
+              <span>立刻登录</span>
+            </a>
+          </p>
+        </div>
+      </div>
+      <!-- Register Card -->
+    </div>
+  </div>
+</div>
+{% endblock content %}

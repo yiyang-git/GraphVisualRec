@@ -1,0 +1,145 @@
+{% extends layout_path %}
+
+{% load static %}
+{% load i18n %}
+
+{% block title %}用户账号设置 - 用户反馈{% endblock %}
+
+{% block content %}
+<h4 class="py-3 mb-4">
+  <span class="text-muted fw-light">用户账号设置 /</span> 用户反馈
+</h4>
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="nav nav-pills flex-column flex-md-row mb-3">
+      <li class="nav-item"><a class="nav-link" href="{% url 'auth_account_settings' %}"><i class="bx bx-user me-1"></i> 资料修改</a></li>
+      <li class="nav-item"><a class="nav-link" href="{% url 'auth_datausage_statistics' %}"><i class="bx bx-bell me-1"></i> 数据使用统计</a></li>
+      <li class="nav-item"><a class="nav-link active" href="javascript:void(0);"><i class="bx bx-link-alt me-1"></i> 用户反馈</a></li>
+    </ul>
+    <div class="card mb-4">
+          <h5 class="card-header">用户反馈</h5>
+          <hr class="my-0">
+          <div class="card-body">
+            <form method="post" action="{% url 'auth_user_feedback' %}">
+              {% csrf_token %}
+              <div class="container">
+                  <!-- Satisfaction Section -->
+                  <div class="row mb-3">
+                      <!-- Data Satisfaction -->
+                      <div class="col-md-4 form-group">
+                          <label for="dataSatisfaction">数据满意度</label>
+                          <div class="btn-group" role="group" aria-label="Data Satisfaction">
+                              <input type="radio" class="btn-check" id="dataSatisfaction_1" name="dataSatisfaction" value="1" {% if feedback.datasatisfaction == 1 %}checked{% endif %}>
+                              <label class="btn btn-outline-secondary" for="dataSatisfaction_1">1</label>
+
+                              <input type="radio" class="btn-check" id="dataSatisfaction_2" name="dataSatisfaction" value="2" {% if feedback.datasatisfaction == 2 %}checked{% endif %}>
+                              <label class="btn btn-outline-secondary" for="dataSatisfaction_2">2</label>
+
+                              <input type="radio" class="btn-check" id="dataSatisfaction_3" name="dataSatisfaction" value="3" {% if feedback.datasatisfaction == 3 %}checked{% endif %}>
+                              <label class="btn btn-outline-secondary" for="dataSatisfaction_3">3</label>
+
+                              <input type="radio" class="btn-check" id="dataSatisfaction_4" name="dataSatisfaction" value="4" {% if feedback.datasatisfaction == 4 %}checked{% endif %}>
+                              <label class="btn btn-outline-secondary" for="dataSatisfaction_4">4</label>
+
+                              <input type="radio" class="btn-check" id="dataSatisfaction_5" name="dataSatisfaction" value="5" {% if feedback.datasatisfaction == 5 %}checked{% endif %}>
+                              <label class="btn btn-outline-secondary" for="dataSatisfaction_5">5</label>
+                          </div>
+                      </div>
+
+                      <!-- Visu Satisfaction -->
+                      <div class="col-md-4 form-group">
+                          <label for="visuSatisfaction">可视化满意度</label>
+                          <div class="btn-group" role="group" aria-label="Visu Satisfaction">
+                              <input type="radio" class="btn-check" id="visuSatisfaction_1" name="visuSatisfaction" value="1" {% if feedback.visusatisfaction == 1 %}checked{% endif %}>
+                              <label class="btn btn-outline-secondary" for="visuSatisfaction_1">1</label>
+
+                              <input type="radio" class="btn-check" id="visuSatisfaction_2" name="visuSatisfaction" value="2" {% if feedback.visusatisfaction == 2 %}checked{% endif %}>
+                              <label class="btn btn-outline-secondary" for="visuSatisfaction_2">2</label>
+
+                              <input type="radio" class="btn-check" id="visuSatisfaction_3" name="visuSatisfaction" value="3" {% if feedback.visusatisfaction == 3 %}checked{% endif %}>
+                              <label class="btn btn-outline-secondary" for="visuSatisfaction_3">3</label>
+
+                              <input type="radio" class="btn-check" id="visuSatisfaction_4" name="visuSatisfaction" value="4" {% if feedback.visusatisfaction == 4 %}checked{% endif %}>
+                              <label class="btn btn-outline-secondary" for="visuSatisfaction_4">4</label>
+
+                              <input type="radio" class="btn-check" id="visuSatisfaction_5" name="visuSatisfaction" value="5" {% if feedback.visusatisfaction == 5 %}checked{% endif %}>
+                              <label class="btn btn-outline-secondary" for="visuSatisfaction_5">5</label>
+                          </div>
+                      </div>
+
+                      <!-- User Satisfaction -->
+                      <div class="col-md-4 form-group">
+                          <label for="userSatisfaction">用户满意度</label>
+                          <div class="btn-group" role="group" aria-label="User Satisfaction">
+                              <input type="radio" class="btn-check" id="userSatisfaction_1" name="userSatisfaction" value="1" {% if feedback.usersatisfaction == 1 %}checked{% endif %}>
+                              <label class="btn btn-outline-secondary" for="userSatisfaction_1">1</label>
+
+                              <input type="radio" class="btn-check" id="userSatisfaction_2" name="userSatisfaction" value="2" {% if feedback.usersatisfaction == 2 %}checked{% endif %}>
+                              <label class="btn btn-outline-secondary" for="userSatisfaction_2">2</label>
+
+                              <input type="radio" class="btn-check" id="userSatisfaction_3" name="userSatisfaction" value="3" {% if feedback.usersatisfaction == 3 %}checked{% endif %}>
+                              <label class="btn btn-outline-secondary" for="userSatisfaction_3">3</label>
+
+                              <input type="radio" class="btn-check" id="userSatisfaction_4" name="userSatisfaction" value="4" {% if feedback.usersatisfaction == 4 %}checked{% endif %}>
+                              <label class="btn btn-outline-secondary" for="userSatisfaction_4">4</label>
+
+                              <input type="radio" class="btn-check" id="userSatisfaction_5" name="userSatisfaction" value="5" {% if feedback.usersatisfaction == 5 %}checked{% endif %}>
+                              <label class="btn btn-outline-secondary" for="userSatisfaction_5">5</label>
+                          </div>
+                      </div>
+                  </div>
+
+                  <!-- Preferences Section -->
+                  <div class="row mb-3">
+                      <!-- Data Preference -->
+                      <div class="col-md-4 form-group">
+                          <label for="dataPreference">数据偏好</label>
+                          <select id="dataPreference" name="dataPreference" class="form-select">
+                              {% for key, value in feedback.DataPreference_Choice.items %}
+                                  <option value="{{ key }}" {% if feedback.dataPreference == key %}selected{% endif %}>{{ value }}</option>
+                              {% endfor %}
+                          </select>
+                      </div>
+
+                      <!-- Dash Preference -->
+                      <div class="col-md-4 form-group">
+                          <label for="dashPreference">仪表盘偏好</label>
+                          <select id="dashPreference" name="dashPreference" class="form-select">
+                              {% for key, value in feedback.DashPreference_Choice.items %}
+                                  <option value="{{ key }}" {% if feedback.dashPreference == key %}selected{% endif %}>{{ value }}</option>
+                              {% endfor %}
+                          </select>
+                      </div>
+
+                      <!-- Visu Preference -->
+                      <div class="col-md-4 form-group">
+                          <label for="visuPreference">可视化偏好</label>
+                          <select id="visuPreference" name="visuPreference" class="form-select">
+                              {% for key, value in feedback.VisuPreference_Choice.items %}
+                                  <option value="{{ key }}" {% if feedback.visuPreference == key %}selected{% endif %}>{{ value }}</option>
+                              {% endfor %}
+                          </select>
+                      </div>
+                  </div>
+
+                  <!-- Comment Section -->
+                  <div class="mb-3">
+                      <label for="comment" class="form-label">评论</label>
+                      <textarea id="comment" name="comment" class="form-control" aria-label="With textarea" rows="4">{{ feedback.comment }}</textarea>
+                  </div>
+
+                  <!-- Buttons -->
+                  <div class="d-flex justify-content-end mt-3">
+                      <button type="submit" class="btn btn-primary me-2">保存修改</button>
+                      <button type="reset" class="btn btn-outline-secondary">取消</button>
+                  </div>
+              </div>
+          </form>
+          </div>
+          <!-- /Account -->
+        </div>
+      </div>
+    </div>
+
+{% endblock %}

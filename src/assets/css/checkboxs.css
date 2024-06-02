@@ -1,0 +1,165 @@
+/* 定义变量 */
+:root {
+    --wormDur: 0.4s;
+    --radioDur: 0.2s;
+    --timing1: cubic-bezier(0.45, 0.05, 0.55, 0.95);
+    --timing2: cubic-bezier(0.5, 0, 0.5, 2);
+}
+
+/* 重置样式 */
+* {
+    border: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* 根元素字体大小 */
+:root {
+    font-size: calc(32px + (40 - 32) * (100vw - 320px) / (1024 - 320));
+}
+
+/* body 样式 */
+body {
+    background: #e3e4e8;
+    color: #17181c;
+    display: flex;
+    font-family: 'Hind', sans-serif;
+    height: 100vh;
+    line-height: 1.5;
+    padding: 1.5em 0;
+}
+
+/* form 样式 */
+form {
+    display: block;
+    margin: auto;
+    max-width: 10em;
+    position: relative;
+}
+
+/* input 样式 */
+input {
+    position: fixed;
+    top: -1.5em;
+    left: -1.5em;
+}
+
+/* label 样式 */
+label {
+    cursor: pointer;
+    display: block;
+    font-weight: bold;
+    text-shadow: 0 0.1em 0.1em rgba(0, 0, 0, 0.2);
+    transition: color var(--radioDur) var(--timing1);
+    margin-bottom: 1.5em;
+}
+
+label span {
+    box-shadow: 0 0 0 0.2em currentColor inset, 0 0.2em 0.2em rgba(0, 0, 0, 0.2), 0 0.3em 0.2em rgba(0, 0, 0, 0.2) inset;
+    display: inline-block;
+    margin-right: 0.5em;
+    vertical-align: bottom;
+    width: 1.5em;
+    height: 1.5em;
+    transition: transform var(--radioDur) var(--timing2), box-shadow var(--radioDur) var(--timing1), color var(--radioDur) var(--timing1);
+    border-radius: 50%;
+}
+
+/* 选中的 input 和 label 样式 */
+input:checked + label,
+input:checked + label span,
+.worm__segment:before {
+    color: #255ff4;
+}
+
+input:checked + label,
+input:checked + label span {
+    transition-delay: var(--wormDur);
+}
+
+input:checked + label span {
+    transform: scale(1.2);
+}
+
+/* .worm 样式 */
+.worm {
+    top: 0.375em;
+    left: 0.375em;
+    position: absolute;
+}
+
+.worm__segment {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0.75em;
+    height: 0.75em;
+    transition: transform var(--wormDur) var(--timing1);
+}
+
+.worm__segment:before {
+    animation-duration: var(--wormDur);
+    animation-timing-function: var(--timing1);
+    background: currentColor;
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.worm__segment:first-child:before,
+.worm__segment:last-child:before {
+    box-shadow: 0 0 1em 0 currentColor;
+}
+
+/* 动画延迟 */
+.worm__segment:nth-child(2) { transition-delay: calc(var(--wormDur) / 100 * (2 - 1)); }
+.worm__segment:nth-child(3) { transition-delay: calc(var(--wormDur) / 100 * (3 - 1)); }
+/* 继续为其他的子元素定义 transition-delay ... */
+
+.worm__segment:nth-child(2):before { animation-delay: calc(var(--wormDur) / 100 * (2 - 1)); }
+.worm__segment:nth-child(3):before { animation-delay: calc(var(--wormDur) / 100 * (3 - 1)); }
+/* 继续为其他的子元素定义 animation-delay ... */
+
+/* input 选中时的样式 */
+input:nth-of-type(1):checked ~ .worm .worm__segment {
+    transform: translateY(0);
+}
+
+input:nth-of-type(2):checked ~ .worm .worm__segment {
+    transform: translateY(3em);
+}
+
+input:nth-of-type(3):checked ~ .worm .worm__segment {
+    transform: translateY(6em);
+}
+
+/* 动画 keyframes */
+@keyframes hop1 {
+    from, to { transform: translateX(0); }
+    50% { transform: translateX(-1.5em); }
+}
+
+@keyframes hop2 {
+    from, to { transform: translateX(0); }
+    50% { transform: translateX(-1.5em); }
+}
+
+/* 继续定义其他动画 ... */
+
+/* 深色模式 */
+@media screen and (prefers-color-scheme: dark) {
+    body {
+        background: #17181c;
+        color: #e3e4e8;
+    }
+
+    input:checked + label,
+    input:checked + label span,
+    .worm__segment:before {
+        color: #5583f6;
+    }
+}
+

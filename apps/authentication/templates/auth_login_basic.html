@@ -1,0 +1,86 @@
+{% extends layout_path %}
+
+{% load static %}
+{% load i18n %}
+
+{% block title %}登录{% endblock %}
+
+{% block page_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static  'vendor/css/pages/page-auth.css' %}">
+{% endblock page_css %}
+
+{% block content %}
+<div class="container-xxl">
+  <div class="authentication-wrapper authentication-basic container-p-y">
+    <div class="authentication-inner">
+      <!-- Login -->
+      <div class="card">
+        <div class="card-body">
+          <!-- Logo -->
+          <div class="app-brand justify-content-center">
+            <a href="{% url 'index' %}" class="app-brand-link gap-2">
+              <span class="app-brand-logo demo">
+                <img src="{% static 'img/logo/logo_Beihang.png' %}" alt="Beihang" width="40">
+              </span>
+              <span class="app-brand-text demo text-body fw-bold">{% get_theme_variables 'template_name' %}</span>
+            </a>
+          </div>
+          <!-- /Logo -->
+{#          <h4 class="mb-2">欢迎使用{% get_theme_variables 'template_name' %}👋</h4>#}
+          <p class="mb-4">请注册或使用邮箱登录</p>
+
+          <form id="formAuthentication" class="mb-3" method='post' action="{% url 'auth-login-basic' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="email" class="form-label">邮箱</label>
+              <input type="text" class="form-control" id="email" name="email" placeholder="请输入邮箱地址" value="{{ email }}" autofocus >
+            </div>
+            <div class="mb-3 form-password-toggle">
+              <div class="d-flex justify-content-between">
+                <label class="form-label" for="password">密码</label>
+                <a href="{% url 'auth-forgot-password-basic' %}">
+                  <small>忘记密码?</small>
+                </a>
+              </div>
+              <div class="input-group input-group-merge">
+                <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
+                <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="remember-me">
+                <label class="form-check-label" for="remember-me">
+                  自动登录
+                </label>
+              </div>
+            </div>
+            {% if messages %}
+              <ul class="messages">
+                {% for message in messages %}
+                  <li class="{{ message.tags }}" style="font-size: small; color:red;">{{ message }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+            <div class="mb-3">
+              <button class="btn btn-primary d-grid w-100" type="submit">登录</button>
+            </div>
+          </form>
+
+          <p class="text-center">
+            <span>新用户注册入口 | </span>
+            <a href="{% url 'auth-register-basic' %}">
+              <span>创建新账号</span>
+            </a>
+          </p>
+          <p class="text-center">
+            <span style="font-size: 12px;">版权 © 北京航空航天大学2024</span>
+          </p>
+        </div>
+      </div>
+      <!-- /Login -->
+    </div>
+  </div>
+</div>
+{% endblock content %}

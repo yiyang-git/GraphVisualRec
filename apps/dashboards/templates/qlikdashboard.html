@@ -1,0 +1,21 @@
+{% extends layout_path %}
+
+{% load static %}
+{% load i18n %}
+
+{% block title %}数据可视化仪表盘{% endblock %}
+
+{% block content %}
+
+<!-- Layout Demo -->
+<div class="layout-demo-wrapper">
+  <div class="layout-demo-placeholder">
+    <iframe src="{{ iframe_src }}" class="img-fluid" alt="Layout fluid"></iframe>
+  </div>
+  <div class="layout-demo-info">
+    <h4>Layout container</h4>
+    <p>Container layout sets a <code>max-width</code> at each responsive breakpoint.</p>
+  </div>
+</div>
+<!--/ Layout Demo -->
+{% endblock %}

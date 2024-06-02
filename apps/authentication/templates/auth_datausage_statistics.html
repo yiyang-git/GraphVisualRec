@@ -1,0 +1,56 @@
+{% extends layout_path %}
+
+{% load static %}
+{% load i18n %}
+
+{% block title %}用户账号设置 - 数据使用统计{% endblock %}
+
+{% block vendor_js %}
+{{ block.super }}
+<script src="{% static 'vendor/libs/apex-charts/apexcharts.js' %}"></script>
+{% endblock vendor_js %}
+
+{% block page_js %}
+{{ block.super }}
+<script src="{% static 'js/datausage_statistics.js' %}"></script>
+{% endblock page_js %}
+
+{% block content %}
+<h4 class="py-3 mb-4">
+  <span class="text-muted fw-light">用户账号设置 /</span> 数据使用统计
+</h4>
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="nav nav-pills flex-column flex-md-row mb-3">
+      <li class="nav-item"><a class="nav-link" href="{% url 'auth_account_settings' %}"><i class="bx bx-user me-1"></i> 资料修改</a></li>
+      <li class="nav-item"><a class="nav-link active" href="javascript:void(0);"><i class="bx bx-bell me-1"></i> 数据使用统计</a></li>
+      <li class="nav-item"><a class="nav-link" href="{% url 'auth_user_feedback' %}"><i class="bx bx-link-alt me-1"></i> 用户反馈</a></li>
+    </ul>
+    <div class="card">
+      <!-- Notifications -->
+      <h5 class="card-header">用户数据使用统计</h5>
+      <div class="card-body">
+        <span>系统将自动收集用户对数据仪表盘以及不同数据的使用情况，用于构建用户知识图谱模型</span>
+        <div class="error"></div>
+      </div>
+      <div class="row">
+          <div class="col-md-6">
+              <div id="dashboardUsageChart"></div>
+              <div id="dataUsageChart"></div>
+          </div>
+          <div class="col-md-6">
+              <div id="dashboardUsageDonutChart"></div>
+              <div id="dataUsageDonutChart"></div>
+          </div>
+      </div>
+      <script>
+          window.dashboardUsage = {{ dashboard_usage|safe }};
+          window.dataUsage = {{ data_usage|safe }};
+      </script>
+      <!-- /Notifications -->
+    </div>
+  </div>
+</div>
+
+{% endblock %}

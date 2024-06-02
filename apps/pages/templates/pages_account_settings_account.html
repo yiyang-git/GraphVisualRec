@@ -1,0 +1,225 @@
+{% extends layout_path %}
+
+{% load static %}
+{% load i18n %}
+
+{% block title %}用户账号设置 - 资料修改{% endblock %}
+{% block page_js %}
+{{ block.super }}
+<script src="{% static 'js/pages-account-settings-account.js' %}"></script>
+{% endblock page_js %}
+
+{% block content %}
+<h4 class="py-3 mb-4">
+  <span class="text-muted fw-light">用户账号设置 /</span> 资料修改
+</h4>
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="nav nav-pills flex-column flex-md-row mb-3">
+      <li class="nav-item"><a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i>资料修改</a></li>
+      <li class="nav-item"><a class="nav-link" href="{% url 'pages-account-settings-notifications' %}"><i class="bx bx-bell me-1"></i> 数据使用统计</a></li>
+      <li class="nav-item"><a class="nav-link" href="{% url 'pages-account-settings-connections' %}"><i class="bx bx-link-alt me-1"></i> 用户反馈</a></li>
+    </ul>
+    <div class="card mb-4">
+      <h5 class="card-header">用户资料</h5>
+      <!-- Account -->
+{#      <div class="card-body">#}
+{#        <div class="d-flex align-items-start align-items-sm-center gap-4">#}
+{#          <img src="{% static 'img/avatars/1.png' %}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />#}
+{#          <div class="button-wrapper">#}
+{#            <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">#}
+{#              <span class="d-none d-sm-block">Upload new photo</span>#}
+{#              <i class="bx bx-upload d-block d-sm-none"></i>#}
+{#              <input type="file" id="upload" class="account-file-input" hidden accept="image/png, image/jpeg" />#}
+{#            </label>#}
+{#            <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">#}
+{#              <i class="bx bx-reset d-block d-sm-none"></i>#}
+{#              <span class="d-none d-sm-block">Reset</span>#}
+{#            </button>#}
+{##}
+{#            <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>#}
+{#          </div>#}
+{#        </div>#}
+{#      </div>#}
+      <hr class="my-0">
+      <div class="card-body">
+        <form id="formAccountSettings" method="POST" action="{% url 'auth_account_settings' %}">
+          {% csrf_token %}
+          <div class="row">
+            <!-- Your existing layout for form fields goes here -->
+
+            <!-- User Information Form -->
+            <div class="col-xl-12">
+              <div class="card shadow mb-3">
+                <div class="card-header py-3">
+                  <p class="text-primary m-0 fw-bold">用户基本信息修改</p>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <div class="mb-3">
+                        <label class="form-label" for="email"><strong>注册邮箱</strong></label>
+                        <p>{{ user.email }}</p>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="mb-3">
+                        <label class="form-label" for="username"><strong>用户名</strong></label>
+                        <input class="form-control" type="text" id="username" value="{{ user.name }}" name="username" required="">
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="mb-3">
+                        <label class="form-label" for="age"><strong>年龄</strong></label>
+                        <input class="form-control" type="text" id="age" value="{{ user.age }}" name="age" required="">
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="mb-3">
+                        <label class="form-label" for="gender"><strong>性别</strong></label>
+                        <select class="form-select" id="gender" name="gender" required>
+                          <option value="1" {% if user.gender == 1 %}selected{% endif %}>男</option>
+                          <option value="0" {% if user.gender == 0 %}selected{% endif %}>女</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <div class="mb-3">
+                        <label class="form-label" for="post"><strong>用户职位</strong></label>
+                        <select id="post" class="form-select" name="post" required>
+                          <option value="General & Transverse Management" {% if user.post == "General & Transverse Management" %}selected{% endif %}>横向管理经理</option>
+                          <option value="Installation & Field Operations" {% if user.post == "Installation & Field Operations" %}selected{% endif %}>安装与现场操作工人</option>
+                          <option value="Digital Transformation" {% if user.post == "Digital Transformation" %}selected{% endif %}>数字化转型部门</option>
+                          <option value="Commercial" {% if user.post == "Commercial" %}selected{% endif %}>商业员工</option>
+                          <option value="Procurement" {% if user.post == "Procurement" %}selected{% endif %}>采购经理</option>
+                          <option value="Strategy, Innovation, Integration" {% if user.post == "Strategy, Innovation, Integration" %}selected{% endif %}>战略与创新部门员工</option>
+                          <option value="Quality" {% if user.post == "Quality" %}selected{% endif %}>质量管控经理</option>
+                          <option value="Project & Bid" {% if user.post == "Project & Bid" %}selected{% endif %}>项目与投标经理</option>
+                          <option value="Human Resources" {% if user.post == "Human Resources" %}selected{% endif %}>人力资源管理</option>
+                          <option value="Environment, Health & Safety" {% if user.post == "Environment, Health & Safety" %}selected{% endif %}>环境、健康和安全</option>
+                          <option value="Supply Chain & Planning" {% if user.post == "Supply Chain & Planning" %}selected{% endif %}>供应链与规划项目经理</option>
+                          <option value="Legal" {% if user.post == "Legal" %}selected{% endif %}>法律员工</option>
+                          <option value="Industrial" {% if user.post == "Industrial" %}selected{% endif %}>工业-现场负责人</option>
+                          <option value="Finance" {% if user.post == "Finance" %}selected{% endif %}>金融部门员工</option>
+                          <option value="Engineering" {% if user.post == "Engineering" %}selected{% endif %}>工程师</option>
+                          <option value="Communication" {% if user.post == "Communication" %}selected{% endif %}>通信员工</option>
+                          <!-- 其他选项 -->
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="mb-3">
+                        <label class="form-label" for="location"><strong>用户工作站点</strong></label>
+                        <select id="location" class="form-select" name="location" required>
+                          <option value="Wuhu" {% if user.location == "Wuhu" %}selected{% endif %}>芜湖</option>
+                          <!-- 其他选项 -->
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="mb-3">
+                        <label class="form-label" for="education"><strong>教育背景</strong></label>
+                        <select id="education" class="form-select" name="education" required>
+                          <option value="highschool" {% if user.education == "highschool" %}selected{% endif %}>高中</option>
+                          <option value="juniorcollege" {% if user.education == "juniorcollege" %}selected{% endif %}>专科</option>
+                          <option value="undergraduate" {% if user.education == "undergraduate" %}selected{% endif %}>本科</option>
+                          <option value="master" {% if user.education == "master" %}selected{% endif %}>硕士</option>
+                          <option value="doctor" {% if user.education == "doctor" %}selected{% endif %}>博士</option>
+                          <!-- 其他选项 -->
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="mb-3">
+                        <label class="form-label" for="department"><strong>部门</strong></label>
+                        <select id="department" class="form-select" name="department" required>
+                          <option value="Production" {% if user.department == "Production" %}selected{% endif %}>生产</option>
+                          <option value="Maintenance" {% if user.department == "Maintenance" %}selected{% endif %}>维修</option>
+                          <option value="Service" {% if user.department == "Service" %}selected{% endif %}>服务</option>
+                          <option value="Commercial" {% if user.department == "Commercial" %}selected{% endif %}>商业</option>
+                          <option value="Executive" {% if user.department == "Executive" %}selected{% endif %}>行政</option>
+                          <option value="Quality" {% if user.department == "Quality" %}selected{% endif %}>质量管控</option>
+                          <!-- 其他选项 -->
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <div class="mb-3">
+                        <label class="form-label" for="workenvironment"><strong>工作环境</strong></label>
+                        <select id="workenvironment" class="form-select" name="workenvironment" required>
+                          <option value="workshop" {% if user.workenvironment == "workshop" %}selected{% endif %}>生产车间</option>
+                          <option value="office" {% if user.workenvironment == "office" %}selected{% endif %}>办公室</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="mb-3">
+                        <label class="form-label" for="techSkillLevel"><strong>软件技术熟练度</strong></label>
+                        <select id="techSkillLevel" class="form-select" name="techSkillLevel" required>
+                          <option value="1" {% if user.techSkillLevel == 1 %}selected{% endif %}>入门</option>
+                          <option value="2" {% if user.techSkillLevel == 2 %}selected{% endif %}>新手</option>
+                          <option value="3" {% if user.techSkillLevel == 3 %}selected{% endif %}>熟悉</option>
+                          <option value="4" {% if user.techSkillLevel == 4 %}selected{% endif %}>掌握</option>
+                          <option value="5" {% if user.techSkillLevel == 5 %}selected{% endif %}>精通</option>
+                          <!-- 其他选项 -->
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="mb-3">
+                        <label class="form-label" for="equipmentSkillLevel"><strong>生产设备操作能力</strong></label>
+                        <select id="equipmentSkillLevel" class="form-select" name="equipmentSkillLevel" required>
+                            <option value="1" {% if user.techSkillLevel == 1 %}selected{% endif %}>入门</option>
+                            <option value="2" {% if user.techSkillLevel == 2 %}selected{% endif %}>新手</option>
+                            <option value="3" {% if user.techSkillLevel == 3 %}selected{% endif %}>熟悉</option>
+                            <option value="4" {% if user.techSkillLevel == 4 %}selected{% endif %}>掌握</option>
+                            <option value="5" {% if user.techSkillLevel == 5 %}selected{% endif %}>精通</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="mb-3">
+                        <label class="form-label" for="experience_years"><strong>工龄</strong></label>
+                        <input class="form-control" type="text" id="experience_years" value="{{ user.experience_years }}" name="experience_years" required="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-2">
+            <button type="submit" class="btn btn-primary me-2">Save changes</button>
+            <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+          </div>
+        </form>
+      </div>
+      <!-- /Account -->
+    </div>
+    <div class="card">
+      <h5 class="card-header">Delete Account</h5>
+      <div class="card-body">
+        <div class="mb-3 col-12 mb-0">
+          <div class="alert alert-warning">
+            <h6 class="alert-heading mb-1">Are you sure you want to delete your account?</h6>
+            <p class="mb-0">Once you delete your account, there is no going back. Please be certain.</p>
+          </div>
+        </div>
+        <form id="formAccountDeactivation" onsubmit="return false">
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" name="accountActivation" id="accountActivation" />
+            <label class="form-check-label" for="accountActivation">I confirm my account deactivation</label>
+          </div>
+          <button type="submit" class="btn btn-danger deactivate-account">Deactivate Account</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

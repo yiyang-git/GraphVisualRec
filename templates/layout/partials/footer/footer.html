@@ -1,0 +1,14 @@
+<footer class="content-footer footer bg-footer-theme">
+  <div class="{{container_class}} d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+    <div class="mb-2 mb-md-0">
+      工业大数据可视化系统 © <script>
+      document.write(new Date().getFullYear())
+
+      </script>
+      ，制作维护：{{ creator_name }} <a href="{% get_theme_variables 'creator_url' %}" target="_blank" class="footer-link fw-medium">{% get_theme_variables 'creator_name' %}</a>
+    </div>
+    <div class="d-none d-lg-inline-block">
+      <a href="{% url 'logout' %}" class="btn btn-sm btn-outline-danger"><i class='bx bx-log-out-circle me-1'></i>Logout</a>
+    </div>
+  </div>
+</footer>
