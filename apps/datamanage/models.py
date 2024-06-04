@@ -2,7 +2,29 @@ from django.db import models
 import os
 
 class FileRecord(models.Model):
+    FILE_FORMAT_CHOICES = [
+        ('pdf', 'PDF'),
+        ('doc', 'Word Document'),
+        ('xls', 'Excel Spreadsheet'),
+        ('txt', 'Text File'),
+    ]
+    FILE_TYPE_CHOICES = [
+        ('time_series_structured', 'Structured data in a time-series'),
+        ('detection_image_framed', 'Defect detection image with frame'),
+        ('detection_image', 'Defect detection image'),
+        ('detection_image_structured', 'Defect detection image'),
+        ('audio_time_series_structured', 'Segmented audio data and corresponding structured data'),
+        ('audio', 'Segmented audio data'),
+        ('structured', 'Structured data'),
+        ('text', 'Text data'),
+        ('detection_image_less_features', 'Defect detection image with less features'),
+        ('geodata', 'Geographic data'),
+    ]
+
     file_name = models.CharField(max_length=255)
+    file_name_chinese = models.CharField(max_length=255, null=True)
+    file_format = models.CharField(max_length=255, choices=FILE_FORMAT_CHOICES)
+    file_type = models.CharField(max_length=255, choices=FILE_TYPE_CHOICES)
     file_description = models.TextField()
     data_explanation = models.TextField()
     entities_json = models.JSONField(null=True)
@@ -63,7 +85,7 @@ class GearboxAudio(models.Model):
     pca1 = models.FloatField(null=True)  # 允许为 null
     pca2 = models.FloatField(null=True)  # 允许为 null
     pca3 = models.FloatField(null=True)  # 允许为 null
-    cluster = models.IntegerField(null=True)  # 允许为 null
+    cluster_pca = models.IntegerField(null=True)  # 允许为 null
     data_file = models.CharField(max_length=255)
     fault = models.CharField(max_length=50, null=True)  # 允许为 null
     circulation = models.CharField(max_length=50, null=True)  # 允许为 null
@@ -74,7 +96,7 @@ class GearboxAudio(models.Model):
     Person = models.CharField(max_length=255, null=True)
 
     def __str__(self):
-        return f"{self.audio_file.name} - Cluster {self.cluster}"
+        return f"{self.audio_file} - PCACluster {self.cluster_pca}"
 
 class DefectImage(models.Model):
     image_url = models.CharField(max_length=255)

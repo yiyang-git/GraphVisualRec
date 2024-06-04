@@ -234,9 +234,11 @@ class AccountSet(TemplateView):
             user.equipmentSkillLevel = request.POST.get('equipmentSkillLevel')
             user.experience_years = request.POST.get('experience_years')
             user.save()
+            messages.success(request, '用户资料修改成功！')
             return redirect('auth_account_settings')
         context = self.get_context_data(**kwargs)
         context['user'] = user
+
         return self.render_to_response(context)
 
 @method_decorator(login_required, name='dispatch')
@@ -300,14 +302,10 @@ class UserFeedbackView(TemplateView):
         feedback.dataPreference = int(request.POST.get('dataPreference'))
         feedback.dashPreference = int(request.POST.get('dashPreference'))
         feedback.visuPreference = int(request.POST.get('visuPreference'))
-
-        new_comment = request.POST.get('comment', '')
-        if feedback.comment and feedback.comment != ' ':
-            feedback.comment += f"; {new_comment}"
-        else:
-            feedback.comment = new_comment
+        feedback.comment = request.POST.get('comment', 'No comment')
         feedback.save()
         context = self.get_context_data(**kwargs)
         context['user'] = user
         context['feedback'] = feedback
+        messages.success(request, '用户反馈成功！')
         return self.render_to_response(context)

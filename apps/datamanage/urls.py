@@ -1,12 +1,12 @@
 from django.urls import path
-from .views import TableView
+from .views import DataTableView
 
 
 
 urlpatterns = [
     path(
-        "tables/basic/",
-        TableView.as_view(template_name="tables_basic.html"),
-        name="tables-basic",
+        "datamanage/datatable/",
+        DataTableView.as_view(template_name="data_table.html"),
+        name="datamanage_datatable",
     )
 ]
